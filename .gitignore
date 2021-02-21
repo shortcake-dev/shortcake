@@ -1,0 +1,14 @@
+# JetBrains
+.idea/
+
+# Python artifacts
+*.pyc
+__pycache__
+*.egg/
+*.egg-info
+
+# Build artifacts
+dist/
+
+# Test artifacts
+tests/.pytest_cache
