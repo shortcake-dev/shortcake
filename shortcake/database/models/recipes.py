@@ -1,13 +1,6 @@
 import uuid
 
-from peewee import (
-    CompositeKey,
-    FloatField,
-    ForeignKeyField,
-    IntegerField,
-    TextField,
-    UUIDField,
-)
+from peewee import CompositeKey, ForeignKeyField, IntegerField, TextField, UUIDField
 
 from .base import BaseModel
 from .ingredients import Ingredient
@@ -22,9 +15,7 @@ class Recipe(BaseModel):
 class RecipeIngredient(BaseModel):
     recipe = ForeignKeyField(Recipe)
     ingredient = ForeignKeyField(Ingredient)
-
-    quantity = FloatField()
-    unit = TextField()
+    measurement = TextField()
 
     class Meta:
         primary_key = CompositeKey("recipe", "ingredient")

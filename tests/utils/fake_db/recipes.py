@@ -25,15 +25,13 @@ def RecipeIngredient(
     *,
     recipe: DBRecipe = None,
     ingredient: DBIngredient = None,
-    quantity: float = None,
-    unit: str = None,
+    measurement: str = None,
     counter_index: int = None,
 ) -> DBRecipeIngredient:
     recipe_ingredient = DBRecipeIngredient.create(
         recipe=recipe or Recipe(),
         ingredient=ingredient or FakeIngredient(),
-        quantity=quantity if quantity is not None else counter_index,
-        unit=unit if unit is not None else "unit",
+        measurement=measurement or f"{counter_index} units",
     )
 
     return recipe_ingredient
