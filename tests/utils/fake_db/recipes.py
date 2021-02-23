@@ -26,12 +26,14 @@ def RecipeIngredient(
     recipe: DBRecipe = None,
     ingredient: DBIngredient = None,
     measurement: str = None,
+    modifier: str = None,
     counter_index: int = None,
 ) -> DBRecipeIngredient:
     recipe_ingredient = DBRecipeIngredient.create(
         recipe=recipe or Recipe(),
         ingredient=ingredient or FakeIngredient(),
         measurement=measurement or f"{counter_index} units",
+        modifier=modifier or "",
     )
 
     return recipe_ingredient
