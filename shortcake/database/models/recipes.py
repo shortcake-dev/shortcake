@@ -15,7 +15,9 @@ class Recipe(BaseModel):
 class RecipeIngredient(BaseModel):
     recipe = ForeignKeyField(Recipe)
     ingredient = ForeignKeyField(Ingredient)
+
     measurement = TextField()
+    modifier = TextField(null=True)
 
     class Meta:
         primary_key = CompositeKey("recipe", "ingredient")
