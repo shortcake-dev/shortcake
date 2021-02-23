@@ -13,28 +13,23 @@ class TestRecipeIngredientModel:
     def test_fields(self):
         recipe = fake_db.Recipe()
         ingredient = fake_db.Ingredient()
-
-        ingredient_quantity = 4
-        ingredient_unit = "cup"
+        measurement = "4 cups"
 
         RecipeIngredient.create(
             recipe=recipe,
             ingredient=ingredient,
-            quantity=ingredient_quantity,
-            unit=ingredient_unit,
+            measurement=measurement,
         )
 
         [recipe_ingredient] = RecipeIngredient.select()
 
         assert isinstance(recipe_ingredient.recipe, Recipe)
         assert isinstance(recipe_ingredient.ingredient, Ingredient)
-        assert isinstance(recipe_ingredient.quantity, float)
-        assert isinstance(recipe_ingredient.unit, str)
+        assert isinstance(recipe_ingredient.measurement, str)
 
         assert recipe_ingredient.recipe == recipe
         assert recipe_ingredient.ingredient == ingredient
-        assert recipe_ingredient.quantity == ingredient_quantity
-        assert recipe_ingredient.unit == ingredient_unit
+        assert recipe_ingredient.measurement == measurement
 
     def test_primary_key(self):
         verify_composite_primary_key(
