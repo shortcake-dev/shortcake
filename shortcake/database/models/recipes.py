@@ -1,4 +1,5 @@
 import uuid
+from typing import List
 
 from peewee import CompositeKey, ForeignKeyField, IntegerField, TextField, UUIDField
 
@@ -10,6 +11,14 @@ class Recipe(BaseModel):
     id = UUIDField(primary_key=True, default=uuid.uuid4)
     name = TextField()
     description = TextField()
+
+    @property
+    def ingredients(self) -> List[Ingredient]:
+        return (
+            Ingredient.select()
+            .join(RecipeIngredient)
+            .where(RecipeIngredient.recipe == self)
+        )
 
 
 class RecipeIngredient(BaseModel):
