@@ -17,8 +17,11 @@ class Recipe:
     ingredients: List[Ingredient]
 
     @classmethod
-    def get_recipe(cls, id_: strawberry.ID) -> Recipe:
-        [db_recipe] = DBRecipe.select().where(DBRecipe.id == id_)
+    def get_recipe(cls, id: strawberry.ID) -> Recipe:
+        # Note: id shadows a builtin until either of the following are solved:
+        # https://github.com/strawberry-graphql/strawberry/issues/727
+        # https://github.com/strawberry-graphql/strawberry/issues/725
+        [db_recipe] = DBRecipe.select().where(DBRecipe.id == id)
 
         return cls.from_db_model(db_recipe)
 

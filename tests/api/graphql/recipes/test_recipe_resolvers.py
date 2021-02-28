@@ -9,7 +9,7 @@ class TestRecipeResolver:
     def test_fields(self):
         query = """
             query($id: ID!) {
-                recipe(id_: $id) {
+                recipe(id: $id) {
                     id,
                     name,
                     description,
