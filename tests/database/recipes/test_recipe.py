@@ -2,6 +2,7 @@ from uuid import UUID
 
 from shortcake.database.models.recipes import Recipe
 
+from tests.utils import fake_db
 from tests.utils.helpers import verify_single_primary_key
 
 
@@ -24,6 +25,23 @@ class TestRecipeModel:
 
         assert recipe.name == recipe_name
         assert recipe.description == recipe_description
+
+    def test_ingredients_property(self):
+        ingredient_1 = fake_db.Ingredient()
+        _ingredient_2 = fake_db.Ingredient()
+        ingredient_3 = fake_db.Ingredient()
+
+        recipe = fake_db.Recipe()
+
+        _recipe_ingredient_1 = fake_db.RecipeIngredient(
+            recipe=recipe, ingredient=ingredient_1
+        )
+        _recipe_ingredient_2 = fake_db.RecipeIngredient(
+            recipe=recipe, ingredient=ingredient_3
+        )
+
+        assert len(recipe.ingredients) == 2
+        assert recipe.ingredients == ingredient_1, ingredient_3
 
     def test_primary_key(self):
         verify_single_primary_key(Recipe.id)
