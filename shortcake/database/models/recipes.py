@@ -1,6 +1,8 @@
 import uuid
+from typing import Sequence
 
 from peewee import CompositeKey, ForeignKeyField, IntegerField, TextField, UUIDField
+from playhouse.hybrid import hybrid_property
 
 from .base import BaseModel
 from .ingredients import Ingredient
@@ -10,6 +12,16 @@ class Recipe(BaseModel):
     id = UUIDField(primary_key=True, default=uuid.uuid4)
     name = TextField()
     description = TextField()
+
+    @hybrid_property
+    def ingredients(self) -> Sequence[Ingredient]:
+        ingredients = (
+            Ingredient.select()
+            .join(RecipeIngredient)
+            .where(RecipeIngredient.recipe == self)
+        )
+
+        return ingredients
 
 
 class RecipeIngredient(BaseModel):
