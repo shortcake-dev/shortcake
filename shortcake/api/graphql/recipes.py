@@ -13,6 +13,7 @@ from .ingredients import Ingredient
 class Recipe:
     id: strawberry.ID
     name: str
+    description: str
     ingredients: List[Ingredient]
 
     @classmethod
@@ -32,5 +33,6 @@ class Recipe:
         return Recipe(
             id=db_recipe.id,
             name=db_recipe.name,
-            ingredients=map(Ingredient.from_db_model, db_recipe.ingredients),
+            description=db_recipe.description,
+            ingredients=list(map(Ingredient.from_db_model, db_recipe.ingredients)),
         )

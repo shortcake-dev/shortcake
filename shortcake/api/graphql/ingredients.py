@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import List
+
 import strawberry
 
 from shortcake.database.models.ingredients import Ingredient as DBIngredient
@@ -15,6 +17,12 @@ class Ingredient:
         [db_ingredient] = DBIngredient.select().where(DBIngredient.id == id_)
 
         return cls.from_db_model(db_ingredient)
+
+    @classmethod
+    def get_ingredients(cls) -> List[Ingredient]:
+        db_ingredients = DBIngredient.select()
+
+        return list(map(Ingredient.from_db_model, db_ingredients))
 
     @classmethod
     def from_db_model(cls, db_ingredient: DBIngredient) -> Ingredient:

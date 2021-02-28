@@ -12,6 +12,9 @@ class Query:
     recipes: List[Recipe] = strawberry.field(resolver=Recipe.get_recipes)
 
     ingredient: Ingredient = strawberry.field(resolver=Ingredient.get_ingredient)
+    ingredients: List[Ingredient] = strawberry.field(
+        resolver=Ingredient.get_ingredients
+    )
 
 
 schema = strawberry.Schema(query=Query)
