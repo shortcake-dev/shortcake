@@ -17,7 +17,7 @@ class Ingredient:
         # Note: id shadows a builtin until either of the following are solved:
         # https://github.com/strawberry-graphql/strawberry/issues/727
         # https://github.com/strawberry-graphql/strawberry/issues/725
-        [db_ingredient] = DBIngredient.select().where(DBIngredient.id == id)
+        db_ingredient = DBIngredient.get_by_id(id)
 
         return cls.from_db_model(db_ingredient)
 

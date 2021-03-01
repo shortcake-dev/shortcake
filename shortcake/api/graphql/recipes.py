@@ -21,7 +21,7 @@ class Recipe:
         # Note: id shadows a builtin until either of the following are solved:
         # https://github.com/strawberry-graphql/strawberry/issues/727
         # https://github.com/strawberry-graphql/strawberry/issues/725
-        [db_recipe] = DBRecipe.select().where(DBRecipe.id == id)
+        db_recipe = DBRecipe.get_by_id(id)
 
         return cls.from_db_model(db_recipe)
 
