@@ -11,3 +11,5 @@ repos:
     rev: v0.812
     hooks:
       - id: mypy
+        args: [ --config-file=.mypy.ini ]
+        exclude: "tests/"
