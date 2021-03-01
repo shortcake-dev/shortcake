@@ -5,7 +5,8 @@ import sqlalchemy_utils
 from peewee import Database
 from playhouse import postgres_ext
 
-from .models import all_models, database_proxy
+from .models import all_models
+from .models.base import database_proxy
 
 
 @dataclass
