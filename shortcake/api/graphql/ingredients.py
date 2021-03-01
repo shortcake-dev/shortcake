@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import List
 
 import strawberry
@@ -9,7 +8,6 @@ from shortcake.database.models.ingredients import Ingredient as DBIngredient
 
 
 @strawberry.type
-@dataclass
 class Ingredient:
     id: strawberry.ID
     name: str

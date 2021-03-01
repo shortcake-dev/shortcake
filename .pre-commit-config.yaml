@@ -13,3 +13,4 @@ repos:
       - id: mypy
         args: [ --config-file=.mypy.ini ]
         exclude: "tests/"
+        additional_dependencies: [ 'strawberry-graphql', 'sqlalchemy-stubs' ]

@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import List
 
 import strawberry
@@ -11,7 +10,6 @@ from .ingredients import Ingredient
 
 
 @strawberry.type
-@dataclass
 class Recipe:
     id: strawberry.ID
     name: str
