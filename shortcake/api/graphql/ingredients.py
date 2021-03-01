@@ -13,8 +13,11 @@ class Ingredient:
     name: str
 
     @classmethod
-    def get_ingredient(cls, id_: strawberry.ID) -> Ingredient:
-        [db_ingredient] = DBIngredient.select().where(DBIngredient.id == id_)
+    def get_ingredient(cls, id: strawberry.ID) -> Ingredient:
+        # Note: id shadows a builtin until either of the following are solved:
+        # https://github.com/strawberry-graphql/strawberry/issues/727
+        # https://github.com/strawberry-graphql/strawberry/issues/725
+        [db_ingredient] = DBIngredient.select().where(DBIngredient.id == id)
 
         return cls.from_db_model(db_ingredient)
 
