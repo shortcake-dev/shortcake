@@ -8,9 +8,15 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    # Don't fail on Python 3.10-dev tests (#15, #20)
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
         python-version: [ "3.8", "3.9", "3.10-dev" ]
+        experimental: [ false ]
+        include:
+          - python-version: "3.10-dev"
+            experimental: true
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
