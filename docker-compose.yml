@@ -8,6 +8,8 @@ services:
     restart: "no"
     depends_on:
       - postgres
+    ports:
+      - 8000:8000
   postgres:
     image: postgres
     restart: unless-stopped
