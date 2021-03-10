@@ -43,5 +43,14 @@ class TestRecipeModel:
         assert len(recipe.ingredients) == 2
         assert recipe.ingredients == ingredient_1, ingredient_3
 
+    def test_steps_property(self):
+        recipe = fake_db.Recipe()
+
+        num_steps = 3
+        steps = [fake_db.RecipeStep(recipe=recipe) for _ in range(num_steps)]
+
+        assert len(recipe.steps) == num_steps
+        assert list(recipe.steps) == steps
+
     def test_primary_key(self):
         verify_single_primary_key(Recipe.id)

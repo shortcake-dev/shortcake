@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import uuid
 from typing import Sequence
 
@@ -22,6 +24,12 @@ class Recipe(BaseModel):
         )
 
         return ingredients
+
+    @hybrid_property
+    def steps(self) -> Sequence[RecipeStep]:
+        steps = RecipeStep.select().where(RecipeStep.recipe == self)
+
+        return steps
 
 
 class RecipeIngredient(BaseModel):
