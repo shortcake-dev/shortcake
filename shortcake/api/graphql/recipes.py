@@ -4,7 +4,7 @@ from typing import List
 
 import strawberry
 
-from api.graphql.ingredients import Ingredient
+from shortcake.api.graphql.ingredients import Ingredient
 from shortcake.database.models.recipes import Recipe as DBRecipe
 from shortcake.database.models.recipes import RecipeIngredient as DBRecipeIngredient
 
