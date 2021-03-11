@@ -4,9 +4,9 @@ from typing import List
 
 import strawberry
 
+from shortcake.api.graphql.ingredients import Ingredient
 from shortcake.database.models.recipes import Recipe as DBRecipe
-
-from .ingredients import Ingredient
+from shortcake.database.models.recipes import RecipeIngredient as DBRecipeIngredient
 
 
 @strawberry.type
@@ -14,7 +14,7 @@ class Recipe:
     id: strawberry.ID
     name: str
     description: str
-    ingredients: List[Ingredient]
+    ingredients: List[RecipeIngredient]
 
     @classmethod
     def get_recipe(cls, id: strawberry.ID) -> Recipe:
@@ -37,5 +37,26 @@ class Recipe:
             id=db_recipe.id,
             name=db_recipe.name,
             description=db_recipe.description,
-            ingredients=list(map(Ingredient.from_db_model, db_recipe.ingredients)),
+            ingredients=list(
+                map(RecipeIngredient.from_db_model, db_recipe.ingredients)
+            ),
+        )
+
+
+@strawberry.type
+class RecipeIngredient:
+    recipe: Recipe
+    ingredient: Ingredient
+    measurement: str
+    modifier: str
+
+    @classmethod
+    def from_db_model(
+        cls, db_recipe_ingredient: DBRecipeIngredient
+    ) -> RecipeIngredient:
+        return RecipeIngredient(
+            recipe=db_recipe_ingredient.recipe,
+            ingredient=Ingredient.get_ingredient(db_recipe_ingredient.ingredient),
+            measurement=db_recipe_ingredient.measurement,
+            modifier=db_recipe_ingredient.modifier,
         )

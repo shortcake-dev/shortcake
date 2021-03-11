@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import uuid
 from typing import Sequence
 
@@ -14,14 +16,16 @@ class Recipe(BaseModel):
     description = TextField()
 
     @hybrid_property
-    def ingredients(self) -> Sequence[Ingredient]:
-        ingredients = (
-            Ingredient.select()
-            .join(RecipeIngredient)
-            .where(RecipeIngredient.recipe == self)
-        )
+    def ingredients(self) -> Sequence[RecipeIngredient]:
+        ingredients = RecipeIngredient.select().where(RecipeIngredient.recipe == self)
 
         return ingredients
+
+    @hybrid_property
+    def steps(self) -> Sequence[RecipeStep]:
+        steps = RecipeStep.select().where(RecipeStep.recipe == self)
+
+        return steps
 
 
 class RecipeIngredient(BaseModel):
