@@ -14,7 +14,9 @@ class TestRecipeResolver:
                     name,
                     description,
                     ingredients {
-                        id
+                        ingredient {
+                            id
+                        }
                     }
                 }
             }
@@ -36,7 +38,7 @@ class TestRecipeResolver:
         assert UUID(recipe["id"]) == db_recipe.id
         assert recipe["name"] == db_recipe.name
         assert recipe["description"] == db_recipe.description
-        assert UUID(recipe["ingredients"][0]["id"]) == db_ingredient.id
+        assert UUID(recipe["ingredients"][0]["ingredient"]["id"]) == db_ingredient.id
 
 
 class TestRecipesResolver:

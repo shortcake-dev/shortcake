@@ -16,12 +16,8 @@ class Recipe(BaseModel):
     description = TextField()
 
     @hybrid_property
-    def ingredients(self) -> Sequence[Ingredient]:
-        ingredients = (
-            Ingredient.select()
-            .join(RecipeIngredient)
-            .where(RecipeIngredient.recipe == self)
-        )
+    def ingredients(self) -> Sequence[RecipeIngredient]:
+        ingredients = RecipeIngredient.select().where(RecipeIngredient.recipe == self)
 
         return ingredients
 
