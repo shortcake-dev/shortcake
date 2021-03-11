@@ -18,6 +18,9 @@ class TestRecipeResolver:
                             id
                         }
                     }
+                    steps {
+                        stepIndex
+                    }
                 }
             }
         """
@@ -27,6 +30,7 @@ class TestRecipeResolver:
         _db_recipe_ingredient = fake_db.RecipeIngredient(
             recipe=db_recipe, ingredient=db_ingredient
         )
+        db_recipe_step = fake_db.RecipeStep(recipe=db_recipe)
 
         result = schema.execute_sync(
             query=query, variable_values={"id": str(db_recipe.id)}
@@ -38,7 +42,9 @@ class TestRecipeResolver:
         assert UUID(recipe["id"]) == db_recipe.id
         assert recipe["name"] == db_recipe.name
         assert recipe["description"] == db_recipe.description
+
         assert UUID(recipe["ingredients"][0]["ingredient"]["id"]) == db_ingredient.id
+        assert recipe["steps"][0]["stepIndex"] == db_recipe_step.step_index
 
 
 class TestRecipesResolver:
