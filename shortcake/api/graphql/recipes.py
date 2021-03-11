@@ -7,6 +7,7 @@ import strawberry
 from shortcake.api.graphql.ingredients import Ingredient
 from shortcake.database.models.recipes import Recipe as DBRecipe
 from shortcake.database.models.recipes import RecipeIngredient as DBRecipeIngredient
+from shortcake.database.models.recipes import RecipeStep as DBRecipeStep
 
 
 @strawberry.type
@@ -15,6 +16,7 @@ class Recipe:
     name: str
     description: str
     ingredients: List[RecipeIngredient]
+    steps: List[RecipeStep]
 
     @classmethod
     def get_recipe(cls, id: strawberry.ID) -> Recipe:
@@ -40,6 +42,7 @@ class Recipe:
             ingredients=list(
                 map(RecipeIngredient.from_db_model, db_recipe.ingredients)
             ),
+            steps=list(map(RecipeStep.from_db_model, db_recipe.steps)),
         )
 
 
@@ -59,4 +62,19 @@ class RecipeIngredient:
             ingredient=Ingredient.get_ingredient(db_recipe_ingredient.ingredient),
             measurement=db_recipe_ingredient.measurement,
             modifier=db_recipe_ingredient.modifier,
+        )
+
+
+@strawberry.type
+class RecipeStep:
+    recipe: Recipe
+    step_index: int
+    text: str
+
+    @classmethod
+    def from_db_model(cls, db_recipe_step: DBRecipeStep) -> RecipeStep:
+        return RecipeStep(
+            recipe=db_recipe_step.recipe,
+            step_index=db_recipe_step.step_index,
+            text=db_recipe_step.text,
         )
