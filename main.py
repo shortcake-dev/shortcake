@@ -1,9 +1,7 @@
 import sqlalchemy_utils
 import uvicorn
-from starlette.applications import Starlette
-from strawberry.asgi import GraphQL
 
-from shortcake.api.graphql import schema
+from shortcake.asgi.app import BrainFrameApp
 from shortcake.database.management import DBConfig, create_database, init_database
 
 DATABASE_HOSTNAME = "postgres"
@@ -18,14 +16,9 @@ def main():
 
     init_database(db_config)
 
-    app = Starlette(debug=True)
-    graphql_app = GraphQL(schema, debug=True)
+    app = BrainFrameApp(debug=True)
 
-    path = "/"
-    app.add_route(path, graphql_app)
-    app.add_websocket_route(path, graphql_app)
-
-    uvicorn.run(app, host="0.0.0.0", port=8000, log_level="error")
+    uvicorn.run(app, host="0.0.0.0", port=8000, log_level="debug")
 
 
 if __name__ == "__main__":
