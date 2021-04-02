@@ -12,3 +12,6 @@ dist/
 
 # Test artifacts
 tests/.pytest_cache
+
+# Mypy artifacts
+.mypy_cache/
