@@ -70,10 +70,11 @@ class ShortcakeDatabase:
         conn.execute("commit")
         conn.execute(f"create database {self.database_name}")
 
-    def initialize(self) -> None:
+    def connect(self) -> None:
         database_proxy.initialize(self.database)
-
         self.database.connect(reuse_if_open=True)
+
+    def create_tables(self) -> None:
         self.database.create_tables(self.models, safe=True)
         self.database.commit()
 

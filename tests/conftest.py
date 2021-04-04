@@ -19,7 +19,9 @@ def postgres_test_db() -> Generator[PostgresqlExtDatabase, None, None]:
     )
 
     database.create(overwrite=True)
-    database.initialize()
+    database.connect()
+    database.create_tables()
+
     yield database.database
 
     database.drop_tables()

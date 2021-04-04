@@ -16,7 +16,8 @@ def main():
     if not database.exists:
         database.create()
 
-    database.initialize()
+    database.connect()
+    database.create_tables()
 
     app = BrainFrameApp(debug=True)
 
