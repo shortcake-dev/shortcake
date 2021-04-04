@@ -1,20 +1,22 @@
-import sqlalchemy_utils
 import uvicorn
 
 from shortcake.asgi.app import BrainFrameApp
-from shortcake.database.management import DBConfig, create_database, init_database
+from shortcake.database.management import ShortcakeDatabase
 
 DATABASE_HOSTNAME = "postgres"
 DATABASE_NAME = "shortcake"
 
 
 def main():
-    db_config = DBConfig(database=DATABASE_NAME, hostname=DATABASE_HOSTNAME)
+    database = ShortcakeDatabase(
+        database_name=DATABASE_NAME,
+        hostname=DATABASE_HOSTNAME,
+    )
 
-    if not sqlalchemy_utils.database_exists(db_config.uri):
-        create_database(db_config)
+    if not database.exists:
+        database.create()
 
-    init_database(db_config)
+    database.initialize()
 
     app = BrainFrameApp(debug=True)
 
