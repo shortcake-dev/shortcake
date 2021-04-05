@@ -1,0 +1,126 @@
+{
+  "name": "Shepherd's Pie",
+  "description": "Easy-to-make shepherd's pie.",
+  "ingredients": [
+    {
+      "name": "olive oil",
+      "measurement": "2 tablespoons",
+      "modifier": null
+    },
+    {
+      "name": "yellow onion",
+      "measurement": "1 cup",
+      "modifier": "chopped"
+    },
+    {
+      "name": "ground beef",
+      "measurement": "1 pound",
+      "modifier": null
+    },
+    {
+      "name": "parsley flakes",
+      "measurement": "2 teaspoons",
+      "modifier": "dried"
+    },
+    {
+      "name": "rosemary leaves",
+      "measurement": "1 teaspoon",
+      "modifier": "dried"
+    },
+    {
+      "name": "thyme leaves",
+      "measurement": "1 teaspoon",
+      "modifier": "dried"
+    },
+    {
+      "name": "salt",
+      "measurement": "1/2 teaspoon",
+      "modifier": null
+    },
+    {
+      "name": "black pepper",
+      "measurement": "1/2 teaspoon",
+      "modifier": "ground"
+    },
+    {
+      "name": "Worcestershire sauce",
+      "measurement": "1 tablespoon",
+      "modifier": null
+    },
+    {
+      "name": "garlic cloves",
+      "measurement": "2",
+      "modifier": "minced"
+    },
+    {
+      "name": "all-purpose flour",
+      "measurement": "2 tablespoons",
+      "modifier": null
+    },
+    {
+      "name": "tomato paste",
+      "measurement": "2 tablespoons",
+      "modifier": null
+    },
+    {
+      "name": "beef broth",
+      "measurement": "1 cup",
+      "modifier": null
+    },
+    {
+      "name": "mixed peas & carrots",
+      "measurement": "1 cup",
+      "modifier": "frozen"
+    },
+    {
+      "name": "corn kernels",
+      "measurement": "1/2 cup",
+      "modifier": "frozen"
+    },
+    {
+      "name": "russet potatoes",
+      "measurement": "2 large",
+      "modifier": "peeled and cut into 1 inch cubes"
+    },
+    {
+      "name": "unsalted butter",
+      "measurement": "8 tablespoons",
+      "modifier": null
+    },
+    {
+      "name": "half & half",
+      "measurement": "1/3 cup",
+      "modifier": null
+    },
+    {
+      "name": "garlic powder",
+      "measurement": "1/2 teaspoon",
+      "modifier": null
+    },
+    {
+      "name": "parmesan cheese",
+      "measurement": "1/4 cup",
+      "modifier": null
+    }
+  ],
+  "steps": [
+    "Saute onions in olive oil",
+    "Add ground beef",
+    "Add parsley, thyme, rosemary, salt, and pepper",
+    "Cook until meat is browned, stirring occasionally",
+    "Add garlic and Worcestershire sauce",
+    "Cook the garlic for a minute",
+    "Add flour and tomato paste",
+    "Add beef broth and frozen vegetables",
+    "Simmer the meat gravy until thick",
+    "Preheat oven to 400 °F",
+    "Peel, chop, and boil potatoes until soft, then drain",
+    "Add butter, half & half, parmesan cheese, garlic powder, salt, and pepper",
+    "Mash the potatoes until smooth",
+    "Pour the meat mixture into a 9x9 (or 7x11) casserole dish",
+    "Top with the potato mixture",
+    "Bake uncovered for 25-30 minutes, until meat is bubbling and the potatoes are golden",
+    "Allow to cool for 15 minutes"
+  ],
+  "recipe_source": "https://www.thewholesomedish.com/the-best-classic-shepherds-pie/"
+}

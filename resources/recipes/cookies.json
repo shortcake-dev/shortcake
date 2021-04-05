@@ -1,0 +1,69 @@
+{
+  "name": "Oatmeal, chocolate chip cookies",
+  "description": "Really soft and tasty oatmeal, chocolate chip cookies.",
+  "ingredients": [
+    {
+      "name": "butter",
+      "measurement": "1 cup",
+      "modifier": "softened"
+    },
+    {
+      "name": "light brown sugar",
+      "measurement": "1 cup, packed",
+      "modifier": null
+    },
+    {
+      "name": "white sugar",
+      "measurement": "1/2 cup",
+      "modifier": null
+    },
+    {
+      "name": "all-purpose flour",
+      "measurement": "1 1/4 cup",
+      "modifier": null
+    },
+    {
+      "name": "egg",
+      "measurement": "2",
+      "modifier": null
+    },
+    {
+      "name": "vanilla extract",
+      "measurement": "2 teaspoon",
+      "modifier": null
+    },
+    {
+      "name": "baking soda",
+      "measurement": "1/3 teaspoon",
+      "modifier": null
+    },
+    {
+      "name": "salt",
+      "measurement": "1 teaspoon",
+      "modifier": null
+    },
+    {
+      "name": "quick-cooking oats",
+      "measurement": "3 cup",
+      "modifier": null
+    },
+    {
+      "name": "walnuts",
+      "measurement": "1 cup",
+      "modifier": "chopped"
+    },
+    {
+      "name": "semisweet chocolate chips",
+      "measurement": "1 cup",
+      "modifier": null
+    }
+  ],
+  "steps": [
+    "Preheat oven to 325 °F",
+    "In a large bowl, cream together butter, brown sugar, and white sugar until smooth. Beat in eggs one at a time, then stir in vanilla. Combine the flour, baking soda, and salt; stir into the creamed mixture until just blended. Mix in the quick oats, walnuts, and chocolate chips.",
+    "Drop dough by heaping spoonfuls onto ungreased baking sheets.",
+    "Bake for 12 minutes",
+    "Cool cookies for 5 minutes on baking sheet; then transfer to a wire rack to cool completely."
+  ],
+  "recipe_source": "https://www.allrecipes.com/recipe/24445/chewy-chocolate-chip-oatmeal-cookies/"
+}
