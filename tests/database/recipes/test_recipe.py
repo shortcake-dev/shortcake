@@ -57,7 +57,7 @@ class TestRecipeModel:
     def test_primary_key(self):
         verify_single_primary_key(Recipe.id)
 
-    @pytest.mark.xfail(reason="shortcake-dev/shortcake#57", strict=True)
+    @pytest.mark.xfail(reason="shortcake-dev/shortcake#57")
     def test_nullability(self):
         assert not Recipe.id.null
         assert not Recipe.name.null
