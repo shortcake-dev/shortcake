@@ -24,3 +24,7 @@ class TestIngredientModel:
 
     def test_primary_key(self):
         verify_single_primary_key(Ingredient.id)
+
+    def test_nullability(self):
+        assert not Ingredient.id.null
+        assert not Ingredient.name.null
