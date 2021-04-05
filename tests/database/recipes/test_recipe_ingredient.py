@@ -41,3 +41,9 @@ class TestRecipeIngredientModel:
             Model=RecipeIngredient,
             primary_keys=[RecipeIngredient.recipe, RecipeIngredient.ingredient],
         )
+
+    def test_nullability(self):
+        assert not RecipeIngredient.recipe.null
+        assert not RecipeIngredient.ingredient.null
+        assert not RecipeIngredient.measurement.null
+        assert RecipeIngredient.modifier.null

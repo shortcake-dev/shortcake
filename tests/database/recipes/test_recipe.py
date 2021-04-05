@@ -1,5 +1,7 @@
 from uuid import UUID
 
+import pytest
+
 from shortcake.database.models.recipes import Recipe
 
 from tests.utils import fake_db
@@ -54,3 +56,9 @@ class TestRecipeModel:
 
     def test_primary_key(self):
         verify_single_primary_key(Recipe.id)
+
+    @pytest.mark.xfail(reason="shortcake-dev/shortcake#57", strict=True)
+    def test_nullability(self):
+        assert not Recipe.id.null
+        assert not Recipe.name.null
+        assert Recipe.description.null

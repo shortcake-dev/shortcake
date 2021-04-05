@@ -35,3 +35,8 @@ class TestRecipeStepModel:
         verify_composite_primary_key(
             Model=RecipeStep, primary_keys=[RecipeStep.recipe, RecipeStep.step_index]
         )
+
+    def test_nullability(self):
+        assert not RecipeStep.recipe.null
+        assert not RecipeStep.step_index.null
+        assert not RecipeStep.text.null
