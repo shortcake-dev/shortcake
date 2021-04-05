@@ -13,7 +13,7 @@ from .ingredients import Ingredient
 class Recipe(BaseModel):
     id = UUIDField(primary_key=True, default=uuid.uuid4)
     name = TextField()
-    description = TextField()
+    description = TextField(null=True)
 
     @hybrid_property
     def ingredients(self) -> Sequence[RecipeIngredient]:
