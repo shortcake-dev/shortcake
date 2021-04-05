@@ -1,0 +1,45 @@
+{
+  "name": "Enchiladas",
+  "description": "Quick and low-effort creamy enchiladas.",
+  "ingredients": [
+    {
+      "name": "canned chicken",
+      "measurement": "2 large cans",
+      "modifier": null
+    },
+    {
+      "name": "canned green chiles",
+      "measurement": "1 7oz can",
+      "modifier": null
+    },
+    {
+      "name": "cheddar cheese",
+      "measurement": "1/2 cup",
+      "modifier": "shredded"
+    },
+    {
+      "name": "chicken soup",
+      "measurement": "1 can",
+      "modifier": null
+    },
+    {
+      "name": "sour cream",
+      "measurement": "1/2 cup",
+      "modifier": null
+    },
+    {
+      "name": "tortillas",
+      "measurement": "8",
+      "modifier": null
+    }
+  ],
+  "steps": [
+    "Preheat oven to 350 °F",
+    "Combine all ingredient except for tortillas in a large bowl",
+    "Put some in each tortilla and wrap it up",
+    "Spread the rest of the mix over the top",
+    "Sprinkle a little extra cheddar cheese over the top",
+    "Bake for 20-25 minutes"
+  ],
+  "recipe_source": null
+}
