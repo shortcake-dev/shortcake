@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List
+from typing import List, Optional
 
 import strawberry
 
@@ -14,7 +14,7 @@ from shortcake.database.models.recipes import RecipeStep as DBRecipeStep
 class Recipe:
     id: strawberry.ID
     name: str
-    description: str
+    description: Optional[str]
     ingredients: List[RecipeIngredient]
     steps: List[RecipeStep]
 
