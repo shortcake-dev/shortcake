@@ -1,10 +1,7 @@
-import pytest
-
 from shortcake.api.graphql.recipes import Recipe
 
 
 class TestRecipeSchema:
-    @pytest.mark.xfail(reason="shortcake-dev/shortcake#62")
     def test_nullability(self):
         fields = {field.name: field for field in Recipe._type_definition.fields}
 
