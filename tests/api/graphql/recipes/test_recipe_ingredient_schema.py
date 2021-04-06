@@ -1,5 +1,3 @@
-import pytest
-
 from shortcake.api.graphql.recipes import RecipeIngredient
 
 
