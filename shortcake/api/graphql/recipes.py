@@ -51,7 +51,7 @@ class RecipeIngredient:
     recipe: Recipe
     ingredient: Ingredient
     measurement: str
-    modifier: str
+    modifier: Optional[str]
 
     @classmethod
     def from_db_model(
