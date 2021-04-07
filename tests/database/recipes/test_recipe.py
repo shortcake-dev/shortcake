@@ -28,15 +28,15 @@ class TestRecipeModel:
 
     def test_ingredients_property(self):
         ingredient_1 = fake_db.Ingredient()
-        _ingredient_2 = fake_db.Ingredient()
+        _ingredient_2 = fake_db.Ingredient()  # noqa: F841
         ingredient_3 = fake_db.Ingredient()
 
         recipe = fake_db.Recipe()
 
-        _recipe_ingredient_1 = fake_db.RecipeIngredient(
+        _recipe_ingredient_1 = fake_db.RecipeIngredient(  # noqa: F841
             recipe=recipe, ingredient=ingredient_1
         )
-        _recipe_ingredient_2 = fake_db.RecipeIngredient(
+        _recipe_ingredient_2 = fake_db.RecipeIngredient(  # noqa: F841
             recipe=recipe, ingredient=ingredient_3
         )
 

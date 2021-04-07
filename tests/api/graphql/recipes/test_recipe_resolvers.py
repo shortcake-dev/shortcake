@@ -27,7 +27,7 @@ class TestRecipeResolver:
 
         db_recipe = fake_db.Recipe()
         db_ingredient = fake_db.Ingredient()
-        _db_recipe_ingredient = fake_db.RecipeIngredient(
+        _db_recipe_ingredient = fake_db.RecipeIngredient(  # noqa: F841
             recipe=db_recipe, ingredient=db_ingredient
         )
         db_recipe_step = fake_db.RecipeStep(recipe=db_recipe)
@@ -53,7 +53,7 @@ class TestRecipesResolver:
             {
                 recipes {
                     id
-                }    
+                }
             }
         """
 

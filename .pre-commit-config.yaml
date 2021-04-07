@@ -14,3 +14,7 @@ repos:
         args: [ --config-file=.mypy.ini ]
         exclude: "tests/"
         additional_dependencies: [ 'strawberry-graphql', 'sqlalchemy-stubs' ]
+  - repo: https://github.com/pycqa/flake8
+    rev: 3.9.0
+    hooks:
+      - id: flake8

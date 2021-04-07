@@ -23,7 +23,7 @@ def main():
         recipe_json = json.loads(recipe_path.read_text())
 
         with database.database.atomic():
-            _recipe = create_recipe(recipe_json)
+            create_recipe(recipe_json)
 
 
 def create_recipe(recipe_json: dict) -> Recipe:
@@ -37,7 +37,7 @@ def create_recipe(recipe_json: dict) -> Recipe:
         create_recipe_ingredient(ingredient_json, recipe)
 
     for step_index, step_json in enumerate(recipe_json["steps"]):
-        _step = create_recipe_step(step_json, step_index, recipe)
+        create_recipe_step(step_json, step_index, recipe)
 
     return recipe
 
