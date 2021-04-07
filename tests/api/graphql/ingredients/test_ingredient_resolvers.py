@@ -35,7 +35,7 @@ class TestIngredientsResolver:
             {
                 ingredients {
                     id
-                }    
+                }
             }
         """
 
