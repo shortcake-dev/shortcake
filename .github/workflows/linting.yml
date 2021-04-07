@@ -3,7 +3,7 @@ name: linting
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   pre-commit:
