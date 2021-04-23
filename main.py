@@ -1,6 +1,6 @@
 import uvicorn
 
-from shortcake.asgi.app import BrainFrameApp
+from shortcake.asgi.app import ShortcakeApp
 from shortcake.database.management import ShortcakeDatabase
 
 DATABASE_HOSTNAME = "postgres"
@@ -19,7 +19,7 @@ def main():
     database.connect()
     database.create_tables()
 
-    app = BrainFrameApp(debug=True)
+    app = ShortcakeApp(debug=True)
 
     uvicorn.run(app, host="0.0.0.0", port=8000, log_level="debug")
 

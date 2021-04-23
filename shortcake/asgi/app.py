@@ -7,7 +7,7 @@ from strawberry.asgi import GraphQL
 from shortcake.api.graphql import schema as graphql_schema
 
 
-class BrainFrameApp(Starlette):
+class ShortcakeApp(Starlette):
     def __init__(self, debug: bool = False):
         self.graphql_app = GraphQL(graphql_schema, debug=debug)
 
