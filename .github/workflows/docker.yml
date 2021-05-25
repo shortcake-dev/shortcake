@@ -38,6 +38,6 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/shortcake:alpha
-            ghcr.io/shortcake-dev/shortcake:alpha
+  #            ghcr.io/shortcake-dev/shortcake:alpha
   #            ${{ secrets.DOCKERHUB_USERNAME }}/shortcake:$TAG
   #            ghcr.io/shortcake-dev/shortcake:$TAG
