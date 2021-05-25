@@ -37,7 +37,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/shortcake:alpha
+            ${{ secrets.DOCKERHUB_ORG }}/shortcake:alpha
             ghcr.io/${{ github.repository_owner }}/shortcake:alpha
   #            ${{ secrets.DOCKERHUB_USERNAME }}/shortcake:$TAG
   #            ghcr.io/${{ github.repository_owner }}/shortcake:$TAG
