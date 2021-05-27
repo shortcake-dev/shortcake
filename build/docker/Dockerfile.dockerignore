@@ -1,0 +1,7 @@
+/.github/
+/.idea/
+/.mypy_cache/
+
+/build/
+/resources/
+/scripts/

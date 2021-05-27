@@ -1,28 +1,39 @@
-ARG ARCH_VERSION="base-devel-20210214.0.15477"
-ARG BUILD_DATE="2021/02/20"
+FROM python:3.9-alpine AS base
 
-################################################################################
 
-FROM archlinux:${ARCH_VERSION} AS build-dep
+FROM base as build
 
-# Reuse argument from previous build scope
-ARG BUILD_DATE
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_NO_CACHE_DIR=1 \
+    POETRY_VERSION=1.1.6
 
-# Use Arch archive to freeze packages to a certain date
-RUN echo "Server=https://archive.archlinux.org/repos/${BUILD_DATE}/\$repo/os/\$arch" \
-        | tee /etc/pacman.d/mirrorlist && \
-    pacman -Syyuu --noconfirm
+RUN apk add --no-cache \
+    # Build/install dependencies
+    gcc musl-dev \
+    # For cryptography transitive Python dependency until PEP 656
+    libffi-dev libressl-dev cargo \
+    # For psycopg2 Python dependency until PEP 656
+    postgresql-dev
 
-# Install dependencies
-RUN pacman --noconfirm -S \
-    postgresql \
-    python python-pip python-poetry
+RUN pip install "poetry==${POETRY_VERSION}"
+RUN poetry config virtualenvs.in-project true
 
 # Setup poetry
 WORKDIR /poetry/
 COPY poetry.lock pyproject.toml ./
 
-RUN poetry config virtualenvs.create false
-RUN poetry install -vvv
+RUN poetry install --no-dev -vvv
 
-USER postgres
+
+FROM base as final
+
+RUN apk add --no-cache \
+    postgresql-client
+
+COPY --from=build /poetry/.venv/ /venv/
+ENV PATH="/venv/bin:${PATH}"
+
+WORKDIR /shortcake/
+COPY . .
+
+CMD ["python", "main.py"]
