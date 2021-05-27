@@ -15,7 +15,7 @@ RUN apk add --no-cache \
     # For psycopg2 Python dependency until PEP 656
     postgresql-dev
 
-RUN pip3 install "poetry==${POETRY_VERSION}"
+RUN pip install "poetry==${POETRY_VERSION}"
 RUN poetry config virtualenvs.in-project true
 
 # Setup poetry
