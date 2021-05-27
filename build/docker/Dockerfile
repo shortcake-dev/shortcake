@@ -32,7 +32,7 @@ RUN apk add --no-cache \
 
 WORKDIR /venv/
 COPY --from=build /poetry/.venv/ /venv/
-ENV PATH="/venv/bin:$PATH"
+ENV PATH="/venv/bin:${PATH}"
 
 WORKDIR /shortcake/
 COPY . .
