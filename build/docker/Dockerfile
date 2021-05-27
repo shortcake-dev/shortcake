@@ -30,7 +30,6 @@ FROM base as final
 RUN apk add --no-cache \
     postgresql-client
 
-WORKDIR /venv/
 COPY --from=build /poetry/.venv/ /venv/
 ENV PATH="/venv/bin:${PATH}"
 
