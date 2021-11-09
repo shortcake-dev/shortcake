@@ -1,0 +1,19 @@
+name: dev-deploy
+
+on:
+  pull_request:
+    types: [ synchronize, reopened, opened, ready_for_review ]
+
+jobs:
+
+  dev-docker-deploy:
+    uses: shortcake-dev/shortcake/.github/workflows/deploy-docker.yml@main
+    with:
+      image_name: "shortcake"
+      tag: "dev-pr${{ github.event.number }}"
+      dockerhub_orgname: ${{ secrets.DOCKERHUB_ORG }}
+      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      github_orgname: ${{ github.repository_owner }}
+    secrets:
+      dockerhub_token: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+      github_token: ${{ secrets.GITHUB_TOKEN }}
