@@ -16,13 +16,12 @@ on:
       dockerhub_orgname:
         type: string
         required: true
-      dockerhub_username:
-        type: string
-        required: true
       github_orgname:
         type: string
         required: true
     secrets:
+      dockerhub_username:
+        required: true
       dockerhub_token:
         required: true
       github_token:
@@ -52,7 +51,7 @@ jobs:
       - name: "Log in to Docker Hub"
         uses: docker/login-action@v1
         with:
-          username: ${{ inputs.dockerhub_username }}
+          username: ${{ secrets.dockerhub_username }}
           password: ${{ secrets.dockerhub_token }}
 
       - name: "Log in to GitHub Container Registry"
