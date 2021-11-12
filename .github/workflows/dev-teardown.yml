@@ -1,0 +1,21 @@
+name: dev-teardown
+
+on:
+  pull_request:
+    types: [ converted_to_draft, closed ]
+
+jobs:
+
+  dev-docker-delete:
+    uses: shortcake-dev/shortcake/.github/workflows/delete-docker.yml@main
+    with:
+      image_name: "shortcake"
+      tag: "dev-pr${{ github.event.number }}"
+      # TODO: secrets context does not appear to exist here? Luckily this isn't
+      #       actually a secret
+      # dockerhub_orgname: ${{ secrets.DOCKERHUB_ORG }}
+      dockerhub_orgname: shortcakedev
+      github_orgname: ${{ github.repository_owner }}
+    secrets:
+      dockerhub_token: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+      github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,47 @@
+name: delete-docker
+
+on:
+  workflow_call:
+    inputs:
+      image_name:
+        type: string
+        required: true
+      tag:
+        type: string
+        required: true
+      dockerhub_orgname:
+        type: string
+        required: true
+      github_orgname:
+        type: string
+        required: true
+    secrets:
+      dockerhub_token:
+        required: true
+      github_token:
+        required: true
+
+jobs:
+  delete-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Delete image from Docker Hub"
+        run: |
+          # Note this uses an undocumented API:
+          # https://stackoverflow.com/a/59334315/8134178
+          curl \
+            --header "Authorization: Bearer ${{ secrets.dockerhub_token }}" \
+            --header "Accept: application/json" \
+            --request POST \
+            --fail \
+            https://hub.docker.com/v2\
+              /repositories/${{ inputs.dockerhub_orgname }}/${{ inputs.image_name }}\
+              /tags/${{ inputs.tag }}/
+
+      - name: "Delete image from GitHub Container Registry"
+        uses: bots-house/ghcr-delete-image-action@v1.0.0
+        with:
+          owner: ${{ inputs.github_orgname }}
+          name: ${{ inputs.image_name }}
+          token: ${{ secrets.github_token }}
+          tag: ${{ inputs.tag }}
