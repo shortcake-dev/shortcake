@@ -30,7 +30,7 @@ jobs:
       - name: "Delete image from Docker Hub"
         run: |
           # Get Docker Hub JWT
-          DOCKERHUB_TOKEN = $(curl \
+          DOCKERHUB_TOKEN=$(curl \
             --header "Accept: application/json" \
             --request POST \
             --data '{ \
