@@ -34,7 +34,7 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v2
 
-      - name: "Docker meta"
+      - name: "Docker meta (repos and tags)"
         id: meta
         uses: docker/metadata-action@v3
         with:
