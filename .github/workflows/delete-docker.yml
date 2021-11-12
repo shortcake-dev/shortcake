@@ -34,9 +34,12 @@ jobs:
             --header "Accept: application/json" \
             --request POST \
             --fail \
-            https://hub.docker.com/v2\
-              /repositories/${{ inputs.dockerhub_orgname }}/${{ inputs.image_name }}\
-              /tags/${{ inputs.tag }}/
+            ${DOCKERHUB_API_ADDRESS}/${REPO_API_PATH}/${IMAGE_API_PATH}/${TAG_API_PATH}/
+        env:
+          DOCKERHUB_API_ADDRESS: "https://hub.docker.com/v2"
+          REPO_API_PATH: "/repositories/${{ inputs.dockerhub_orgname }}"
+          IMAGE_API_PATH: "${{ inputs.image_name }}"
+          TAG_API_PATH: "tags/${{ inputs.tag }}"
 
       - name: "Delete image from GitHub Container Registry"
         uses: bots-house/ghcr-delete-image-action@v1.0.0
