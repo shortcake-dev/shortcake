@@ -16,6 +16,8 @@ on:
         type: string
         required: true
     secrets:
+      dockerhub_username:
+        required: true
       dockerhub_token:
         required: true
       github_token:
@@ -27,17 +29,31 @@ jobs:
     steps:
       - name: "Delete image from Docker Hub"
         run: |
+          # Get Docker Hub JWT
+          DOCKERHUB_TOKEN = $(curl \
+            --header "Accept: application/json" \
+            --request POST \
+            --data '{ \
+              "username": "${{ secrets.dockerhub_username }}", \
+              "password": "${{ secrets.dockerhub_token }}" \
+            }' \
+            --fail \
+            ${DOCKERHUB_API_ADDRESS}/${LOGIN_API_PATH} \
+            | jq -r .token \
+          )
+
           # Note this uses an undocumented API:
           # https://stackoverflow.com/a/59334315/8134178
           curl \
-            --header "Authorization: Bearer ${{ secrets.dockerhub_token }}" \
+            --header "Authorization: JWT ${DOCKERHUB_TOKEN}" \
             --header "Accept: application/json" \
             --request POST \
             --fail \
             ${DOCKERHUB_API_ADDRESS}/${REPO_API_PATH}/${IMAGE_API_PATH}/${TAG_API_PATH}/
         env:
           DOCKERHUB_API_ADDRESS: "https://hub.docker.com/v2"
-          REPO_API_PATH: "/repositories/${{ inputs.dockerhub_orgname }}"
+          LOGIN_API_PATH: "users/login"
+          REPO_API_PATH: "repositories/${{ inputs.dockerhub_orgname }}"
           IMAGE_API_PATH: "${{ inputs.image_name }}"
           TAG_API_PATH: "tags/${{ inputs.tag }}"
 
