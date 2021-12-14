@@ -29,6 +29,11 @@ jobs:
     steps:
       - name: "Delete image from Docker Hub"
         run: |
+          # TODO: Remove, this is for testing
+          TOKEN=${{ secrets.dockerhub_token }}
+          echo xxx${{ secrets.dockerhub_username }}xxx
+          echo xxx${TOKEN::10}xxx${TOKEN: -4}xxx
+
           # Get Docker Hub JWT
           DOCKERHUB_TOKEN=$(curl \
             --header "Accept: application/json" \
@@ -41,6 +46,9 @@ jobs:
             ${DOCKERHUB_API_ADDRESS}/${LOGIN_API_PATH} \
             | jq -r .token \
           )
+
+          # TODO: Remove, this is for testing
+          echo xxx${DOCKERHUB_TOKEN::10}xxx${DOCKERHUB_TOKEN: -4}xxx
 
           # Note this uses an undocumented API:
           # https://stackoverflow.com/a/59334315/8134178
