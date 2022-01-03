@@ -1,0 +1,23 @@
+name: dev-teardown
+
+on:
+  pull_request:
+    types: [ converted_to_draft, closed ]
+
+jobs:
+
+  dev-docker-delete:
+    # yamllint disable-line rule:line-length
+    uses: shortcake-dev/shortcake/.github/workflows/delete-docker.yml@c6784ead38a47db04db192aaab12a8679e7792f2
+    with:
+      image_name: "shortcake"
+      tag: "dev-pr${{ github.event.number }}"
+      # TODO: secrets context does not appear to exist here? Luckily this isn't
+      #       actually a secret
+      # dockerhub_orgname: ${{ secrets.DOCKERHUB_ORG }}
+      dockerhub_orgname: shortcakedev
+      github_orgname: ${{ github.repository_owner }}
+    secrets:
+      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      ghcr_pat: ${{ secrets.GH_PAT_SHORTCAKE_GHCR_ADMIN }}

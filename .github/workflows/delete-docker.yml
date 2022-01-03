@@ -1,0 +1,102 @@
+name: delete-docker
+
+on:
+  workflow_call:
+    inputs:
+      image_name:
+        type: string
+        required: true
+      tag:
+        type: string
+        required: true
+      dockerhub_orgname:
+        type: string
+        required: true
+      github_orgname:
+        type: string
+        required: true
+    secrets:
+      dockerhub_username:
+        required: true
+      # Requires password not token because API currently does not support tokens
+      # dockerhub_token:
+      #   required: true
+      dockerhub_password:
+        required: true
+      ghcr_pat:
+        required: true
+
+jobs:
+  delete-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v2
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: "Delete image from Docker Hub"
+        shell: python
+        run: |
+          import requests
+
+          LOGIN_URL = "${{ env.DOCKERHUB_API_ADDRESS }}/${{ env.LOGIN_API_PATH }}"
+          TAG_URL = (
+              "${{ env.DOCKERHUB_API_ADDRESS }}/"
+              "${{ env.REPO_API_PATH }}/"
+              "${{ env.IMAGE_API_PATH }}/${{ env.TAG_API_PATH }}/"
+          )
+
+          dockerhub_jwt_token_req = requests.post(
+              LOGIN_URL,
+              json={
+                  "username": "${{ secrets.dockerhub_username }}",
+                  "password": "${{ secrets.dockerhub_password }}",
+              },
+          )
+          dockerhub_jwt_token_req.raise_for_status()
+          dockerhub_jwt_token = dockerhub_jwt_token_req.json()["token"]
+
+          deletion_req = requests.delete(
+              TAG_URL,
+              headers={"Authorization": f"JWT {dockerhub_jwt_token}"},
+          )
+          # Ignore 404s (no need to delete non-existent image)
+          if deletion_req.status_code == 404:
+              print("Skipping deletion")
+          else:
+              deletion_req.raise_for_status()
+        env:
+          DOCKERHUB_API_ADDRESS: "https://hub.docker.com/v2"
+          LOGIN_API_PATH: "users/login"
+          REPO_API_PATH: "repositories/${{ inputs.dockerhub_orgname }}"
+          IMAGE_API_PATH: "${{ inputs.image_name }}"
+          TAG_API_PATH: "tags/${{ inputs.tag }}"
+
+      - name: "Delete image from GitHub Container Registry"
+        shell: python
+        run: |
+          import requests
+
+          REQUEST_URL = (
+              "${{ env.GITHUB_API_ADDRESS }}/"
+              "${{ env.ORG_PATH }}/"
+              "${{ env.PACKAGE_PATH }}/"
+              "${{ env.PACKAGE_TAG }}/"
+          )
+
+          deletion_req = requests.delete(
+              REQUEST_URL,
+              headers={"Authorization": f"Token ${{ secrets.ghcr_pat }}"},
+          )
+          # Ignore 404s (no need to delete non-existent image)
+          if deletion_req.status_code == 404:
+              print("Skipping deletion")
+          else:
+              deletion_req.raise_for_status()
+        env:
+          GITHUB_API_ADDRESS: "https://api.github.com"
+          ORG_PATH: "orgs/${{ inputs.github_orgname }}"
+          PACKAGE_PATH: "packages/docker"
+          PACKAGE_TAG: ${{ inputs.tag }}
