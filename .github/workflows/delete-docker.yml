@@ -53,12 +53,14 @@ jobs:
                   "password": "${{ secrets.dockerhub_password }}",
               },
           )
+          dockerhub_jwt_token_req.raise_for_status()
           dockerhub_jwt_token = dockerhub_jwt_token_req.json()["token"]
 
-          requests.delete(
+          deletion_req = requests.delete(
               TAG_URL,
               headers={"Authorization": f"JWT {dockerhub_jwt_token}"},
           )
+          deletion_req.raise_for_status()
         env:
           DOCKERHUB_API_ADDRESS: "https://hub.docker.com/v2"
           LOGIN_API_PATH: "users/login"
