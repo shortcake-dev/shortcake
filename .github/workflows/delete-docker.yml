@@ -23,8 +23,6 @@ on:
       #   required: true
       dockerhub_password:
         required: true
-      github_token:
-        required: true
 
 jobs:
   delete-docker:
@@ -72,5 +70,5 @@ jobs:
         with:
           owner: ${{ inputs.github_orgname }}
           name: ${{ inputs.image_name }}
-          token: ${{ secrets.github_token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ inputs.tag }}
