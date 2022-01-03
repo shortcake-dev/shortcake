@@ -18,7 +18,10 @@ on:
     secrets:
       dockerhub_username:
         required: true
-      dockerhub_token:
+      # Requires password not token because API currently does not support token
+      # dockerhub_token:
+      #   required: true
+      dockerhub_password:
         required: true
       github_token:
         required: true
@@ -27,37 +30,36 @@ jobs:
   delete-docker:
     runs-on: ubuntu-latest
     steps:
-      - name: "Delete image from Docker Hub"
-        run: |
-          # TODO: Remove, this is for testing
-          TOKEN=${{ secrets.dockerhub_token }}
-          echo xxx${{ secrets.dockerhub_username }}xxx
-          echo xxx${TOKEN::10}xxx${TOKEN: -4}xxx
+      - name: Set up Python
+        uses: actions/setup-python@v2
 
-          # Get Docker Hub JWT
-          DOCKERHUB_TOKEN=$(curl \
-            --header "Accept: application/json" \
-            --request POST \
-            --data '{ \
-              "username": "${{ secrets.dockerhub_username }}", \
-              "password": "${{ secrets.dockerhub_token }}" \
-            }' \
-            --fail \
-            ${DOCKERHUB_API_ADDRESS}/${LOGIN_API_PATH} \
-            | jq -r .token \
+      - name: Install requests
+        run: pip install requests
+
+      - name: "Delete image from Docker Hub"
+        shell: python
+        run: |
+          import requests
+
+          LOGIN_URL = "${DOCKERHUB_API_ADDRESS}/${LOGIN_API_PATH}"
+          TAG_URL = (
+              "${DOCKERHUB_API_ADDRESS}/"
+              "${REPO_API_PATH}/${IMAGE_API_PATH}/${TAG_API_PATH}/"
           )
 
-          # TODO: Remove, this is for testing
-          echo xxx${DOCKERHUB_TOKEN::10}xxx${DOCKERHUB_TOKEN: -4}xxx
+          dockerhub_jwt_token_req = requests.post(
+              LOGIN_URL,
+              json={
+                  "username": "${{ secrets.dockerhub_username }}",
+                  "password": "${{ secrets.dockerhub_username }}",
+              },
+          )
+          dockerhub_jwt_token = dockerhub_jwt_token_req.json()["token"]
 
-          # Note this uses an undocumented API:
-          # https://stackoverflow.com/a/59334315/8134178
-          curl \
-            --header "Authorization: JWT ${DOCKERHUB_TOKEN}" \
-            --header "Accept: application/json" \
-            --request POST \
-            --fail \
-            ${DOCKERHUB_API_ADDRESS}/${REPO_API_PATH}/${IMAGE_API_PATH}/${TAG_API_PATH}/
+          requests.delete(
+              TAG_URL,
+              headers={"Authorization": f"JWT {dockerhub_token}"},
+          )
         env:
           DOCKERHUB_API_ADDRESS: "https://hub.docker.com/v2"
           LOGIN_API_PATH: "users/login"
