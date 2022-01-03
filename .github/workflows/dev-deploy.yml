@@ -7,7 +7,8 @@ on:
 jobs:
 
   dev-docker-deploy:
-    uses: shortcake-dev/shortcake/.github/workflows/deploy-docker.yml@main
+    # yamllint disable-line rule:line-length
+    uses: shortcake-dev/shortcake/.github/workflows/deploy-docker.yml@034e63df802bed21fd1da45f6741f12b43fc6030
     with:
       image_name: "shortcake"
       tag: "dev-pr${{ github.event.number }}"
