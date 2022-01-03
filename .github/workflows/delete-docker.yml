@@ -75,9 +75,28 @@ jobs:
           TAG_API_PATH: "tags/${{ inputs.tag }}"
 
       - name: "Delete image from GitHub Container Registry"
-        uses: bots-house/ghcr-delete-image-action@v1.0.1
-        with:
-          owner: ${{ inputs.github_orgname }}
-          name: ${{ inputs.image_name }}
-          token: ${{ secrets.ghcr_pat }}
-          tag: ${{ inputs.tag }}
+        shell: python
+        run: |
+          import requests
+
+          REQUEST_URL = (
+              "${{ env.GITHUB_API_ADDRESS }}/"
+              "${{ env.ORG_PATH }}/"
+              "${{ env.PACKAGE_PATH }}/"
+              "${{ env.PACKAGE_TAG }}/"
+          )
+
+          deletion_req = requests.delete(
+              REQUEST_URL,
+              headers={"Authorization": f"Token ${{ secrets.ghcr_pat }}"},
+          )
+          # Ignore 404s (no need to delete non-existent image)
+          if deletion_req.status_code == 404:
+              print("Skipping deletion")
+          else:
+              deletion_req.raise_for_status()
+        env:
+          GITHUB_API_ADDRESS: "https://api.github.com"
+          ORG_PATH: "orgs/${{ inputs.github_orgname }}"
+          PACKAGE_PATH: "packages/docker"
+          PACKAGE_TAG: ${{ inputs.tag }}
