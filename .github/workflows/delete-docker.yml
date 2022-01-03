@@ -50,14 +50,14 @@ jobs:
               LOGIN_URL,
               json={
                   "username": "${{ secrets.dockerhub_username }}",
-                  "password": "${{ secrets.dockerhub_username }}",
+                  "password": "${{ secrets.dockerhub_password }}",
               },
           )
           dockerhub_jwt_token = dockerhub_jwt_token_req.json()["token"]
 
           requests.delete(
               TAG_URL,
-              headers={"Authorization": f"JWT {dockerhub_token}"},
+              headers={"Authorization": f"JWT {dockerhub_jwt_token}"},
           )
         env:
           DOCKERHUB_API_ADDRESS: "https://hub.docker.com/v2"
