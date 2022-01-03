@@ -61,7 +61,9 @@ jobs:
               headers={"Authorization": f"JWT {dockerhub_jwt_token}"},
           )
           # Ignore 404s (no need to delete non-existent image)
-          if deletion_req.status_code != 404:
+          if deletion_req.status_code == 404:
+              print("Skipping deletion")
+          else:
               deletion_req.raise_for_status()
         env:
           DOCKERHUB_API_ADDRESS: "https://hub.docker.com/v2"
