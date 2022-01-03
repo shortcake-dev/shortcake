@@ -39,10 +39,11 @@ jobs:
         run: |
           import requests
 
-          LOGIN_URL = "${DOCKERHUB_API_ADDRESS}/${LOGIN_API_PATH}"
+          LOGIN_URL = "${{ env.DOCKERHUB_API_ADDRESS }}/${{ env.LOGIN_API_PATH }}"
           TAG_URL = (
-              "${DOCKERHUB_API_ADDRESS}/"
-              "${REPO_API_PATH}/${IMAGE_API_PATH}/${TAG_API_PATH}/"
+              "${{ env.DOCKERHUB_API_ADDRESS }}/"
+              "${{ env.REPO_API_PATH }}/"
+              "${{ env.IMAGE_API_PATH }}/${{ env.TAG_API_PATH }}/"
           )
 
           dockerhub_jwt_token_req = requests.post(
