@@ -18,10 +18,12 @@ on:
     secrets:
       dockerhub_username:
         required: true
-      # Requires password not token because API currently does not support token
+      # Requires password not token because API currently does not support tokens
       # dockerhub_token:
       #   required: true
       dockerhub_password:
+        required: true
+      ghcr_pat:
         required: true
 
 jobs:
@@ -73,9 +75,9 @@ jobs:
           TAG_API_PATH: "tags/${{ inputs.tag }}"
 
       - name: "Delete image from GitHub Container Registry"
-        uses: bots-house/ghcr-delete-image-action@v1.0.0
+        uses: bots-house/ghcr-delete-image-action@v1.0.1
         with:
           owner: ${{ inputs.github_orgname }}
           name: ${{ inputs.image_name }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ghcr_pat }}
           tag: ${{ inputs.tag }}

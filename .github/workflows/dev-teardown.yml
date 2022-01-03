@@ -20,3 +20,4 @@ jobs:
     secrets:
       dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      ghcr_pat: ${{ secrets.GH_PAT_SHORTCAKE_GHCR_ADMIN }}
