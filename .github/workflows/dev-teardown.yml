@@ -8,7 +8,7 @@ jobs:
 
   dev-docker-delete:
     # yamllint disable-line rule:line-length
-    uses: shortcake-dev/shortcake/.github/workflows/delete-docker.yml@9d8d1384485f9bc8877e1547585056078700c6df
+    uses: shortcake-dev/shortcake/.github/workflows/delete-docker.yml@258b14ee1168149c647a3b01e7658aeb2c02de8c
     with:
       image_name: "shortcake"
       tag: "dev-pr${{ github.event.number }}"
