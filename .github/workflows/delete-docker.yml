@@ -86,7 +86,7 @@ jobs:
               "${{ env.GITHUB_API_ADDRESS }}/"
               "${{ env.ORG_PATH }}/"
               "${{ env.PACKAGE_PATH }}/"
-              "${{ env.VERSION_PATH }}"
+              "${{ env.VERSIONS_PATH }}"
           )
           images_req = requests.get(
               IMAGES_URL,
