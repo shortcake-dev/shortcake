@@ -10,7 +10,7 @@ peewee = "^3.14.1"
 sqlalchemy = "^1.4"
 sqlalchemy-utils = "^0.38"
 psycopg2-binary = "^2.8.6"
-strawberry-graphql = "^0.45.4"
+strawberry-graphql = "^0.93"
 uvicorn = "^0.13.4"
 requests = "^2.26.0"
 
