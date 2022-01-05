@@ -40,6 +40,7 @@ jobs:
         shell: python
         run: |
           import requests
+          import sys
 
           LOGIN_URL = "${{ env.DOCKERHUB_API_ADDRESS }}/${{ env.LOGIN_API_PATH }}"
           TAG_URL = (
@@ -79,24 +80,47 @@ jobs:
         run: |
           import requests
 
-          REQUEST_URL = (
+          # Find the image ID associated with the image tag
+          # https://docs.github.com/en/rest/reference/packages#delete-package-version-for-an-organization
+          IMAGES_URL = (
               "${{ env.GITHUB_API_ADDRESS }}/"
               "${{ env.ORG_PATH }}/"
               "${{ env.PACKAGE_PATH }}/"
-              "${{ env.PACKAGE_TAG }}/"
+              "${{ env.VERSIONS_PATH }}"
           )
-
-          deletion_req = requests.delete(
-              REQUEST_URL,
+          images_req = requests.get(
+              IMAGES_URL,
               headers={"Authorization": f"Token ${{ secrets.ghcr_pat }}"},
           )
-          # Ignore 404s (no need to delete non-existent image)
+          images_req.raise_for_status()
+          images = images_req.json()
+          for image in images:
+              tags = image["metadata"]["container"]["tags"]
+              if "${{ env.PACKAGE_TAG }}" in tags:
+                  image_id = image["id"]
+                  break
+          else:
+              # No need to delete non-existent image
+              print("Image ${{ inputs.image_name }}:${{ inputs.image_tag }} not found")
+              print("Skipping deletion")
+              sys.exit()
+
+          # Delete the image for that image ID
+          # https://docs.github.com/en/rest/reference/packages#delete-package-version-for-an-organization
+          delete_url = f"{IMAGES_URL}/{image_id}"
+          deletion_req = requests.delete(
+              delete_url,
+              headers={"Authorization": f"Token ${{ secrets.ghcr_pat }}"},
+          )
           if deletion_req.status_code == 404:
+              # No need to delete non-existent image
+              print("Image ${{ inputs.image_name }}:${{ inputs.image_tag }} not found")
               print("Skipping deletion")
           else:
               deletion_req.raise_for_status()
         env:
           GITHUB_API_ADDRESS: "https://api.github.com"
           ORG_PATH: "orgs/${{ inputs.github_orgname }}"
-          PACKAGE_PATH: "packages/docker"
+          PACKAGE_PATH: "packages/container/${{ inputs.image_name }}"
           PACKAGE_TAG: ${{ inputs.tag }}
+          VERSIONS_PATH: "versions"
