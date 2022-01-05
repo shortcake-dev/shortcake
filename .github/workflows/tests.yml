@@ -9,7 +9,6 @@ jobs:
   tests:
     name: "tests (python ${{ matrix.python-version }})"
     runs-on: ubuntu-latest
-    continue-on-error: ${{ matrix.experimental }}
     strategy:
       fail-fast: false
       matrix:
