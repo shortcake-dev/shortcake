@@ -40,6 +40,7 @@ jobs:
         shell: python
         run: |
           import requests
+          import sys
 
           LOGIN_URL = "${{ env.DOCKERHUB_API_ADDRESS }}/${{ env.LOGIN_API_PATH }}"
           TAG_URL = (
@@ -102,7 +103,7 @@ jobs:
               # No need to delete non-existent image
               print("Image ${{ inputs.image_name }}:${{ inputs.image_tag }} not found")
               print("Skipping deletion")
-              return
+              sys.exit()
 
           # Delete the image for that image ID
           # https://docs.github.com/en/rest/reference/packages#delete-package-version-for-an-organization
