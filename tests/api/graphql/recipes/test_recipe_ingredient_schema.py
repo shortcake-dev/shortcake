@@ -1,3 +1,5 @@
+from strawberry.type import StrawberryOptional
+
 from shortcake.api.graphql.recipes import RecipeIngredient
 
 
@@ -7,7 +9,7 @@ class TestRecipeIngredientSchema:
             field.name: field for field in RecipeIngredient._type_definition.fields
         }
 
-        assert not fields["recipe"].is_optional
-        assert not fields["ingredient"].is_optional
-        assert not fields["measurement"].is_optional
-        assert fields["modifier"].is_optional
+        assert not isinstance(fields["recipe"].type, StrawberryOptional)
+        assert not isinstance(fields["ingredient"].type, StrawberryOptional)
+        assert not isinstance(fields["measurement"].type, StrawberryOptional)
+        assert isinstance(fields["modifier"].type, StrawberryOptional)
