@@ -15,9 +15,9 @@ uvicorn = "^0.13.4"
 requests = "^2.26.0"
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2.2"
+pytest = "^6.2.5"
 pre-commit = "^2.10.1"
-black = "^20.8b1"
+black = "^21.12b0"
 isort = "^5.7.0"
 poethepoet = "^0.10.0"
 mypy = "^0.812"
