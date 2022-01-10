@@ -9,7 +9,7 @@ services:
     depends_on:
       - postgres
     ports:
-      - 8000:8000
+      - "8000:8000"
   postgres:
     image: postgres
     restart: unless-stopped
@@ -20,6 +20,6 @@ services:
     volumes:
       - shortcake:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - "5432:5432"
 volumes:
   shortcake:
