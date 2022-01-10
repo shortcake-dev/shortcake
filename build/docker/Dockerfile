@@ -9,7 +9,7 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
 
 RUN apk add --no-cache \
     # Build/install dependencies
-    gcc musl-dev \
+    gcc g++ musl-dev \
     # For cryptography transitive Python dependency until PEP 656
     libffi-dev libressl-dev cargo \
     # For psycopg2 Python dependency until PEP 656
