@@ -38,7 +38,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            ${{ inputs.dockerhub_orgname }}/${{ inputs.image_name }}
+            ${{ secrets.dockerhub_orgname }}/${{ inputs.image_name }}
             ghcr.io/${{ inputs.github_orgname }}/${{ inputs.image_name }}
           tags: |
             type=raw,${{ inputs.tag }}
