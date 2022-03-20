@@ -11,12 +11,9 @@ jobs:
     with:
       image_name: "shortcake"
       tag: "dev-pr${{ github.event.number }}"
-      # TODO: secrets context does not appear to exist here? Luckily this isn't
-      #       actually a secret
-      # dockerhub_orgname: ${{ secrets.DOCKERHUB_ORG }}
-      dockerhub_orgname: shortcakedev
       github_orgname: ${{ github.repository_owner }}
     secrets:
       dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_orgname: ${{ secrets.DOCKERHUB_ORG }}
       dockerhub_token: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
       gh_token: ${{ secrets.GITHUB_TOKEN }}

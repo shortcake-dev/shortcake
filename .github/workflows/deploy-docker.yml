@@ -13,14 +13,13 @@ on:
         type: boolean
         required: false
         default: false
-      dockerhub_orgname:
-        type: string
-        required: true
       github_orgname:
         type: string
         required: true
     secrets:
       dockerhub_username:
+        required: true
+      dockerhub_orgname:
         required: true
       dockerhub_token:
         required: true
@@ -39,7 +38,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            ${{ inputs.dockerhub_orgname }}/${{ inputs.image_name }}
+            ${{ secrets.dockerhub_orgname }}/${{ inputs.image_name }}
             ghcr.io/${{ inputs.github_orgname }}/${{ inputs.image_name }}
           tags: |
             type=raw,${{ inputs.tag }}

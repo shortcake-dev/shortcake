@@ -9,14 +9,13 @@ on:
       tag:
         type: string
         required: true
-      dockerhub_orgname:
-        type: string
-        required: true
       github_orgname:
         type: string
         required: true
     secrets:
       dockerhub_username:
+        required: true
+      dockerhub_orgname:
         required: true
       # Requires password not token because API currently does not support tokens
       # dockerhub_token:
@@ -71,7 +70,7 @@ jobs:
         env:
           DOCKERHUB_API_ADDRESS: "https://hub.docker.com/v2"
           LOGIN_API_PATH: "users/login"
-          REPO_API_PATH: "repositories/${{ inputs.dockerhub_orgname }}"
+          REPO_API_PATH: "repositories/${{ secrets.dockerhub_orgname }}"
           IMAGE_API_PATH: "${{ inputs.image_name }}"
           TAG_API_PATH: "tags/${{ inputs.tag }}"
 
