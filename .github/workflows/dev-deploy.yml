@@ -7,7 +7,7 @@ on:
 jobs:
 
   dev-docker-deploy:
-    uses: shortcake-dev/shortcake/.github/workflows/deploy-docker.yml@main
+    uses: ./.github/workflows/deploy-docker.yml
     with:
       image_name: "shortcake"
       tag: "dev-pr${{ github.event.number }}"

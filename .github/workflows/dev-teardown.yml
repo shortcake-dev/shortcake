@@ -7,7 +7,7 @@ on:
 jobs:
 
   dev-docker-delete:
-    uses: shortcake-dev/shortcake/.github/workflows/delete-docker.yml@main
+    uses: ./.github/workflows/delete-docker.yml
     with:
       image_name: "shortcake"
       tag: "dev-pr${{ github.event.number }}"
