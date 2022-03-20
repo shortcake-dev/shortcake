@@ -11,9 +11,9 @@ jobs:
     with:
       image_name: "shortcake"
       tag: "latest"
-      dockerhub_orgname: ${{ secrets.DOCKERHUB_ORG }}
       github_orgname: ${{ github.repository_owner }}
     secrets:
       dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_orgname: ${{ secrets.DOCKERHUB_ORG }}
       dockerhub_token: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
       gh_token: ${{ secrets.GITHUB_TOKEN }}

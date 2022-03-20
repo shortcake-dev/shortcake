@@ -9,14 +9,13 @@ on:
       tag:
         type: string
         required: true
-      dockerhub_orgname:
-        type: string
-        required: true
       github_orgname:
         type: string
         required: true
     secrets:
       dockerhub_username:
+        required: true
+      dockerhub_orgname:
         required: true
       # Requires password not token because API currently does not support tokens
       # dockerhub_token:

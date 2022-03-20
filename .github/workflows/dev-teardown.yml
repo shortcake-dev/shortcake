@@ -11,9 +11,9 @@ jobs:
     with:
       image_name: "shortcake"
       tag: "dev-pr${{ github.event.number }}"
-      dockerhub_orgname: ${{ secrets.DOCKERHUB_ORG }}
       github_orgname: ${{ github.repository_owner }}
     secrets:
       dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_orgname: ${{ secrets.DOCKERHUB_ORG }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
       ghcr_pat: ${{ secrets.GH_PAT_SHORTCAKE_GHCR_ADMIN }}
