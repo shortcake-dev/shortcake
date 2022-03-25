@@ -5,7 +5,7 @@ FROM base as build
 
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1 \
-    POETRY_VERSION=1.1.6
+    POETRY_VERSION=1.1.13
 
 RUN apk add --no-cache \
     # Build/install dependencies

@@ -10,16 +10,16 @@ peewee = "^3.14.1"
 sqlalchemy = "^1.4"
 sqlalchemy-utils = "^0.38"
 psycopg2-binary = "^2.8.6"
-strawberry-graphql = "^0.93"
-uvicorn = "^0.13.4"
+strawberry-graphql = "^0.103.8"
+uvicorn = "^0.17.6"
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2.5"
+pytest = "^7.1.1"
 pre-commit = "^2.10.1"
-black = "^21.12b0"
+black = "^22.1"
 isort = "^5.7.0"
-poethepoet = "^0.10.0"
-mypy = "^0.812"
+poethepoet = "^0.13.1"
+mypy = "^0.941"
 sqlalchemy-stubs = "^0.4"
 
 [build-system]
