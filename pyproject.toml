@@ -12,6 +12,7 @@ sqlalchemy-utils = "^0.38"
 psycopg2-binary = "^2.8.6"
 strawberry-graphql = "^0.103.8"
 uvicorn = "^0.17.6"
+starlette = "^0.19.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.1"
